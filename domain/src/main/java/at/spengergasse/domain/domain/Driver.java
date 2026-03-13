@@ -20,6 +20,7 @@ public class Driver {
     @Column(nullable = false)
     private String lastName;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, optional = false)
+    @JoinColumn(name = "driver",  foreignKey = @ForeignKey(name = "depot__2__driver"))
     private Depot depot;
 
     public record DriverId(@GeneratedValue Long id) {}
