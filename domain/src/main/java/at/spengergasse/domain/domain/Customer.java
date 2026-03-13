@@ -1,7 +1,10 @@
 package at.spengergasse.domain.domain;
 
+import at.spengergasse.domain.persistence.converter.EmailConverter;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,12 +23,18 @@ public class Customer {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
+    @Convert(converter = EmailConverter.class)
     private Email email;
     @Column(nullable = false)
     private String phone;
-    @Column(nullable = false)
-    @Embedded
-    private Address address;
+    @ElementCollection()
+    @CollectionTable(
+            name = "customer_addresses",
+            joinColumns = {
+                    @JoinColumn(name = "customer", foreignKey = @ForeignKey(name = "customer_addresses__2__customer"))
+            }
+    )
+    private List<Address> address;
 
     public record CustomerId(@GeneratedValue Long id) {}
 }

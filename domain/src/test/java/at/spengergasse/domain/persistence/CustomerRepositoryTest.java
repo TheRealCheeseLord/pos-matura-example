@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -25,12 +27,15 @@ public class CustomerRepositoryTest {
                 .lastName("Mustermann")
                 .email(new Email("max@example.com"))
                 .phone("123")
-                .address(Address.builder()
+                .address(
+                    List.of(
+                        Address.builder()
                         .street("Musterstrasse")
                         .zip("1080")
                         .city("Mustermann")
                         .country("Austria")
                         .build())
+                    )
                 .build();
 
         var saved  = customerRepository.saveAndFlush(customer);
