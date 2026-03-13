@@ -1,0 +1,81 @@
+@startuml
+
+' Objects
+
+class Address<< (V,#ADD8E6) ValueObject>> {
+    street: String <<nn>>
+    zip: String <<nn>>
+    city: String <<nn>>
+    country: String <<nn>>
+}
+
+entity Customer<<Entity>> {
+    firstname: String <<nn>>
+    lastname: String <<nn>>
+    email: String <<nn>>
+    phone: String
+    address: Address <<nn>
+}
+
+entity Depot<<Entity>> {
+    code: String <<nn>> <<unique>>
+    name: String <<nn>>
+    address: Address <<nn>>
+}
+
+entity Driver<<Entity>> {
+    employeeNo: int
+    firstname: String <<nn>>
+    lastname: String <<nn>
+    currentDepot: Depot <<nn>>
+}
+note left of Driver::employeeNo
+PK
+end note
+
+enum DeliveryStatus<<Enum>> {
+    Created
+    InTransit
+    OutForDelivery
+    Delivered
+    Failed
+    Returned
+}
+
+entity Shipment<<Entity>> {
+    sender: Customer <<nn>>
+    trackingNumber: String <<nn>> <<unique>>
+    recipientName: String <<nn>>
+    recipientAddress: Address <<nn>>
+    weightKg: BigDecimal <<nn>>
+    status: DeliveryStatus <<nn>>
+    currentDepot: Depot
+    assignedDriver: Driver
+}
+
+entity DeliveryAttempt<<Entity>> {
+    shipment: Shipment <<nn>>
+    driver: Driver <<nn>>
+    attemptedAt: LocalDateTime <<nn>
+    success: bool <<nn>>
+    notes: string
+}
+
+' Relations
+
+Customer *-- Address : lives at
+
+Depot *-- Address : located at
+
+Driver "0..n" --> "assigned to" Depot
+
+Shipment *-up- Address : "recipient address"
+Shipment "0..n" --> "1" Customer : sent by
+Shipment "0..n" --> "0..1" Depot : currently at
+Shipment "0..n" --> "0..1" Driver : assigned to
+Shipment -right-> DeliveryStatus : status
+
+DeliveryAttempt "0..n" --> "1" Shipment : for
+DeliveryAttempt "0..n" ---> "1" Driver : by
+
+@enduml
