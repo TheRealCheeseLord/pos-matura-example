@@ -20,8 +20,10 @@ public class Customer extends Person {
     @Column(nullable = false)
     @Convert(converter = EmailConverter.class)
     private Email email;
+
     @Column(nullable = false)
     private String phone;
+
     @ElementCollection()
     @CollectionTable(
             name = "customer_addresses",

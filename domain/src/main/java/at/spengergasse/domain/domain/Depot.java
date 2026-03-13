@@ -15,10 +15,13 @@ public class Depot {
 
     @EmbeddedId
     private DepotId id;
+
     @Column(nullable = false, unique = true)
     private String code;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     @Embedded
     private Address address;
