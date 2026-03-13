@@ -1,4 +1,14 @@
-# Project Setup
+# Pos Matura Example
+
+A complete example and CRUD implementation based on a previous POS Matura, for the HTL Spengergasse.
+
+## Matura Instructions (ANGABE.pdf)
+
+### Domain
+
+The PUML found in the `ANGABE.pdf` compared to the on in the project is slightly different.  
+The project PUML contains more examples which could (most likely) come to a matura.  
+The most accurate PUML is always found in the `domain` module under: `domain/src/main/resources/puml/domain.puml` 
 
 ## Maven Environment
 
