@@ -18,7 +18,7 @@ entity Customer<<Entity>> {
     lastname: String <<nn>>
     email: Email <<nn>>
     phone: String
-    address: Address <<nn>
+    address: List<Address> <<nn>
 }
 
 entity Depot<<Entity>> {
@@ -28,7 +28,7 @@ entity Depot<<Entity>> {
 }
 
 entity Driver<<Entity>> {
-    employeeNo: int
+    employeeNo: Long
     firstname: String <<nn>>
     lastname: String <<nn>
     currentDepot: Depot <<nn>>
@@ -55,6 +55,7 @@ entity Shipment<<Entity>> {
     status: DeliveryStatus <<nn>>
     currentDepot: Depot
     assignedDriver: Driver
+    deliveries : List<DeliveryAttempt>
 }
 
 entity DeliveryAttempt<<Entity>> {
@@ -67,7 +68,7 @@ entity DeliveryAttempt<<Entity>> {
 
 ' Relations
 
-Customer *-- Address : lives at
+Customer *-- Address : contains
 Customer -[dashed]-> Email
 
 Depot *-- Address : located at
@@ -79,6 +80,7 @@ Shipment "0..n" --> "1" Customer : sent by
 Shipment "0..n" --> "0..1" Depot : currently at
 Shipment "0..n" --> "0..1" Driver : assigned to
 Shipment -right-> DeliveryStatus : status
+Shipment *--- DeliveryAttempt : (bidirectional)
 
 DeliveryAttempt "0..n" --> "1" Shipment : for
 DeliveryAttempt "0..n" ---> "1" Driver : by
