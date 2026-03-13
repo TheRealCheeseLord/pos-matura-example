@@ -8,4 +8,8 @@ public record PreorderItem(
         Product product,
         int quantity,
         Long unitPriceInCents
-) {}
+) {
+    public Long calculateRevenueInCents() {
+        return quantity * unitPriceInCents;
+    }
+}
