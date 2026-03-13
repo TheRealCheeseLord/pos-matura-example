@@ -1,0 +1,51 @@
+@startuml
+left to right direction
+
+' Objects
+
+entity Category<<Entity>> {
+    name: String
+    products: List<Product>
+}
+
+entity Product<<Entity>> {
+    name: String
+    description: String
+    priceInCents: Long
+    category: Category
+    preorderItems: List<PreorderItem>
+}
+
+entity Customer<<Entity>> {
+    firstname: String
+    lastname: String
+    email: String
+    phone: String
+    preorders: List<Preorder>
+}
+
+entity Preorder<<Entity>> {
+    customer: Customer
+    code: String
+    placedAt: LocalDateTime
+    totalAmountInCents: Long
+    preorderItems: List<PreorderItem>
+}
+
+entity PreorderItem<<Entity>> {
+    preorder: Preorder
+    product: Product
+    quantity: int
+    unitPriceInCents: Long
+}
+
+' Relations
+
+PreorderItem "0..n" --> "1" Product : > Product
+PreorderItem "0..n" --> "1" Preorder : > Preorder
+
+Product "0..n" --> "1" Category : > Category
+
+Preorder "0..n" --> "1" Customer : > Customer
+
+@enduml
