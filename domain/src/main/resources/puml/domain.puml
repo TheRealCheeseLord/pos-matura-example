@@ -2,17 +2,21 @@
 
 ' Objects
 
-class Address<< (V,#ADD8E6) ValueObject>> {
+class Address<Embedded><< (V,#ADD8E6) ValueObject >> {
     street: String <<nn>>
     zip: String <<nn>>
     city: String <<nn>>
     country: String <<nn>>
 }
 
+class Email<Embedded><< (R, #676767) RichType >> {
+    value: String
+}
+
 entity Customer<<Entity>> {
     firstname: String <<nn>>
     lastname: String <<nn>>
-    email: String <<nn>>
+    email: Email <<nn>>
     phone: String
     address: Address <<nn>
 }
@@ -64,6 +68,7 @@ entity DeliveryAttempt<<Entity>> {
 ' Relations
 
 Customer *-- Address : lives at
+Customer -[dashed]-> Email
 
 Depot *-- Address : located at
 
