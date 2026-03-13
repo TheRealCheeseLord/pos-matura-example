@@ -20,6 +20,7 @@ public class Depot {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
+    @Embedded
     private Address address;
 
     public record DepotId(@GeneratedValue Long id) {}

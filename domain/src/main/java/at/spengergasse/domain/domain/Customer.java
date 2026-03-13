@@ -31,10 +31,11 @@ public class Customer {
     @CollectionTable(
             name = "customer_addresses",
             joinColumns = {
-                    @JoinColumn(name = "customer", foreignKey = @ForeignKey(name = "customer_addresses__2__customer"))
+                    @JoinColumn(name = "customer", foreignKey = @ForeignKey(name = "FK__customer_addresses__2__customer"))
             }
     )
-    private List<Address> address;
+    @Builder.Default
+    private List<Address> address = List.of();
 
     public record CustomerId(@GeneratedValue Long id) {}
 }

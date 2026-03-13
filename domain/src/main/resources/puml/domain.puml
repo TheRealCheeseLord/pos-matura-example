@@ -28,14 +28,11 @@ entity Depot<<Entity>> {
 }
 
 entity Driver<<Entity>> {
-    employeeNo: Long
+    employeeNo: Long <<PK>>
     firstname: String <<nn>>
     lastname: String <<nn>
     currentDepot: Depot <<nn>>
 }
-note left of Driver::employeeNo
-PK
-end note
 
 enum DeliveryStatus<<Enum>> {
     Created
@@ -62,7 +59,7 @@ entity DeliveryAttempt<<Entity>> {
     shipment: Shipment <<nn>>
     driver: Driver <<nn>>
     attemptedAt: LocalDateTime <<nn>
-    success: bool <<nn>>
+    success: boolean <<nn>>
     notes: string
 }
 
