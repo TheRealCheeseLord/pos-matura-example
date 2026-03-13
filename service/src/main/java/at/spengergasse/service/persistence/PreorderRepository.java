@@ -11,5 +11,6 @@ public interface PreorderRepository {
 
     Optional<Preorder> findById(Long id);
     List<Preorder> findAll();
+    List<Preorder> findAllByCustomerId(Long id);
 
 }

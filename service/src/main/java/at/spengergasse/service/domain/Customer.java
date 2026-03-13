@@ -6,8 +6,9 @@ import java.util.List;
 
 public record Customer(
         @Id Long id,
-        Customer customer,
-        String code,
-        Long totalAmountInCents,
-        List<PreorderItem> preorderItems
+        String firstname,
+        String lastname,
+        String email,
+        String phone,
+        List<Preorder> preorders
 ) {}
