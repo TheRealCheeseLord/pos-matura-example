@@ -13,9 +13,12 @@ class Email<Embedded><< (R, #676767) RichType >> {
     value: String
 }
 
-entity Customer<<Entity>> {
+entity Person<<Entity>> {
     firstname: String <<nn>>
     lastname: String <<nn>>
+}
+
+entity Customer<<Entity>> {
     email: Email <<nn>>
     phone: String
     address: List<Address> <<nn>
@@ -28,9 +31,6 @@ entity Depot<<Entity>> {
 }
 
 entity Driver<<Entity>> {
-    employeeNo: Long <<PK>>
-    firstname: String <<nn>>
-    lastname: String <<nn>
     currentDepot: Depot <<nn>>
 }
 
@@ -67,6 +67,9 @@ entity DeliveryAttempt<<Entity>> {
 
 Customer *-- Address : contains
 Customer -[dashed]-> Email
+
+Person <|-- Customer
+Person <|-- Driver
 
 Depot *-- Address : located at
 

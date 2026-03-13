@@ -3,6 +3,7 @@ package at.spengergasse.domain.domain;
 import at.spengergasse.domain.persistence.converter.EmailConverter;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -10,18 +11,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer extends Person {
 
-    @EmbeddedId
-    private CustomerId id;
-    @Column(nullable = false)
-    private String firstName;
-    @Column(nullable = false)
-    private String lastName;
     @Column(nullable = false)
     @Convert(converter = EmailConverter.class)
     private Email email;
@@ -36,6 +31,4 @@ public class Customer {
     )
     @Builder.Default
     private List<Address> address = List.of();
-
-    public record CustomerId(@GeneratedValue Long id) {}
 }
