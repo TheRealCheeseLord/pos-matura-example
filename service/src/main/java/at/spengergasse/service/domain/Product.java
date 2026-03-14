@@ -1,11 +1,9 @@
 package at.spengergasse.service.domain;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
 public record Product(
-        @Id Long id,
+        Long id,
         String name,
         String description,
         Long priceInCents,

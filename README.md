@@ -14,7 +14,6 @@ The most accurate PUML is always found in the `domain` module under: `domain/src
 
 The project is split into 3 modules (domain, service, web)  .
 Each module has its own maven context and dependencies - and can/should mock the layers it depends on.  
-(**Note:** The web module relies on the entities in the domain module - I didn't want to code it twice)
 
 Each module has its own unit test environment, which can be run separately.
 
